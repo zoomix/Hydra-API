@@ -1,0 +1,30 @@
+{
+  "name": "hydra-api",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./app/start.js",
+    "dev": "nodemon ./app/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MWallin/Hydra-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MWallin/Hydra-API/issues"
+  },
+  "homepage": "https://github.com/MWallin/Hydra-API#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "dotenv-safe": "^4.0.4",
+    "express": "^4.15.4",
+    "express-validator": "^3.2.1",
+    "mongoose": "^4.11.6",
+    "morgan": "^1.8.2",
+    "voca": "^1.3.0"
+  }
+}
