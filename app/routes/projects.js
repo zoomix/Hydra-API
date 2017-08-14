@@ -7,6 +7,10 @@ const express  = require( "express" )
 const router = express.Router()
 
 
+const { catchErrors } = require( "../handlers/errorHandlers" )
+const projectController = require ( "../controllers/projectController" )
+
+
 
 
 
@@ -14,14 +18,12 @@ const router = express.Router()
 // *****************************************************************************
 // Index routes
 
-// Show landing page
-router.get( "/projects", function ( req, res ) {
+// Basic routes
+router.get( "/projects", catchErrors( projectController.getProjects ) )
+router.post( "/projects", catchErrors( projectController.addProject ) )
 
-  res.json({ projects: "all"})
-
-})
-
-
+// router.get( "/orgs/:orgId", catchErrors( orgController.getOrg ) )
+// router.delete( "/orgs/:orgId", catchErrors( orgController.deleteOrg ) )
 
 
 

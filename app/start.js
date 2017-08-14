@@ -39,6 +39,7 @@ mongoose.connection.on( "error", ( err ) => {
 
 require( "./models/Org" )
 require( "./models/Person" )
+require( "./models/Project" )
 
 
 
