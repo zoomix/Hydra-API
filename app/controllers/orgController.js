@@ -9,6 +9,10 @@
 const mongoose = require( "mongoose" )
 const Org = mongoose.model( "Org" )
 
+const {ObjectID} = require( "mongodb" )
+
+
+
 
 
 // *****************************************************************************
@@ -28,6 +32,30 @@ async function getOrgs ( req, res ) {
 
 
 
+
+
+async function getOrg ( req, res ) {
+
+  const orgId = req.params.orgId
+
+  if ( !ObjectID.isValid( orgId ) ) {
+    return res.status( 400 ).send()
+  }
+
+
+  const org = await Org
+    .findById( orgId )
+    .populate( "employees projects" )
+
+
+  res.json( org )
+
+}
+
+
+
+
+
 async function addOrg ( req, res ) {
 
   const newOrg = {
@@ -35,6 +63,7 @@ async function addOrg ( req, res ) {
     description: req.body.description
 
   }
+
 
   const org = await ( new Org( newOrg ) ).save()
 
@@ -44,9 +73,34 @@ async function addOrg ( req, res ) {
 }
 
 
-// TODO add GET org by id
-// TODO add DEL org by id
+
+
+
+async function deleteOrg ( req, res ) {
+
+  const orgId = req.params.orgId
+
+  if ( !ObjectID.isValid( orgId ) ) {
+    return res.status( 400 ).send()
+  }
+
+  console.log( "Deleting org" )
+
+  const org = await Org.findByIdAndRemove( orgId )
+
+
+  res.json( org )
+
+}
+
+
+
+
+
 // TODO add PATCH org by id
+// TODO add PATCH org by id
+// TODO add PATCH org by id
+
 
 
 
@@ -96,7 +150,14 @@ async function addContact ( req, res ) {
 
 
 
+
+
 // TODO Delete contact
+// TODO Delete contact
+// TODO Delete contact
+
+
+
 
 
 // *****************************************************************************
@@ -105,7 +166,9 @@ async function addContact ( req, res ) {
 
 module.exports = {
   getOrgs,
+  getOrg,
   addOrg,
+  deleteOrg,
   getContacts,
   addContact
 }

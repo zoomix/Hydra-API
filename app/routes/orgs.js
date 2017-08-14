@@ -19,6 +19,8 @@ const orgController = require ( "../controllers/orgController" )
 // Basic routes
 router.get( "/orgs", catchErrors( orgController.getOrgs ) )
 router.post( "/orgs", catchErrors( orgController.addOrg ) )
+router.get( "/orgs/:orgId", catchErrors( orgController.getOrg ) )
+router.delete( "/orgs/:orgId", catchErrors( orgController.deleteOrg ) )
 
 
 // Handle contacs

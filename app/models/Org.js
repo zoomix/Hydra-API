@@ -85,7 +85,6 @@ orgSchema.pre( "save", async function ( next ) {
   this.slug = slugify( this.name )
 
 
-  // TODO: Make slugification unique
   const slugRegEx = new RegExp( `^(${this.slug})((-[0-9]*$)?)$`, "i" )
   const storesWithSlug = await this.constructor.find({ slug: slugRegEx })
 
@@ -106,12 +105,17 @@ orgSchema.pre( "save", async function ( next ) {
 // *****************************************************************************
 // Virtuals
 
-// storeSchema.virtual( "reviews", {
-//   ref         : "Review",
-//   localField  : "_id",
-//   foreignField: "store"
-// })
+orgSchema.virtual( "employees", {
+  ref         : "Person",
+  localField  : "_id",
+  foreignField: "employer.org"
+})
 
+orgSchema.virtual( "projects", {
+  ref         : "Project",
+  localField  : "_id",
+  foreignField: "org"
+})
 
 
 
