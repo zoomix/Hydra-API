@@ -20,7 +20,7 @@ const personSchema = new mongoose.Schema({
   name: {
     type    : String,
     trim    : true,
-    required: "Please enter a store name!"
+    required: "Please enter a name!"
   },
 
   created: {
@@ -40,20 +40,6 @@ const personSchema = new mongoose.Schema({
   toJSON  : { virtuals: true },
   toObject: { virtuals: true}
 })
-
-
-
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Virtuals
-
-// storeSchema.virtual( "reviews", {
-//   ref         : "Review",
-//   localField  : "_id",
-//   foreignField: "store"
-// })
 
 
 
