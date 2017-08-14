@@ -8,6 +8,9 @@
     "start": "node ./app/start.js",
     "dev": "nodemon ./app/start.js"
   },
+  "engines": {
+    "node": ">= 8.2.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MWallin/Hydra-API.git"
