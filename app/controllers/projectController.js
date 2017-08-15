@@ -47,7 +47,7 @@ async function addProject ( req, res ) {
   const project = await ( new Project( newProject ) ).save()
 
 
-  res.json( project )
+  res.status( 201 ).json( project )
 
 }
 

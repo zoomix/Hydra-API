@@ -39,7 +39,7 @@ async function addPerson ( req, res ) {
   const person = await ( new Person( newPerson ) ).save()
 
 
-  res.json( person )
+  res.status( 201 ).json( person )
 
 }
 

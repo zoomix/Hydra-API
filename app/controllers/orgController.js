@@ -68,7 +68,7 @@ async function addOrg ( req, res ) {
   const org = await ( new Org( newOrg ) ).save()
 
 
-  res.json( org )
+  res.status( 201 ).json( org )
 
 }
 
@@ -121,8 +121,6 @@ async function getContacts ( req, res ) {
 
 async function addContact ( req, res ) {
 
-  console.log( req.params )
-  console.log( req.body )
 
   const newContact= {
     role  : req.body.role,
@@ -143,7 +141,7 @@ async function addContact ( req, res ) {
     }
   )
 
-  res.json( org )
+  res.status( 201 ).json( org )
 
 
 }
