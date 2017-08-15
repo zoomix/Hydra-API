@@ -10,8 +10,20 @@ This is the backend for the Hydra collaboration tool.
 
 
 
+For the sake of brevity, the following will be used:
+- **{ ... }** in responses marks a nested object that may be populated or not depending on the situation. 
+- **[ ... ]** in responses marks an array that may be populated depending on the situation and available data. 
+
+
+
+
+# Group Person
 
 ## Person Collection [/persons]
+
+- A person is anyone that can be stored in the system. 
+- A person may have an employer.
+- Some persons are users
 
 
 ### List all persons [GET]
@@ -25,33 +37,7 @@ Get a list of all persons.
             "_id": "5991e1d497d1bb381034a179",
             "name": "Nisse",
             "__v": 0,
-            "employer": {
-              "role": "Chef",
-              "org": {
-                "_id": "59907ab38cbebd3040dab2df",
-                "slug": "fast-2",
-                "name": "FAST2",
-                "description": "The mother of all",
-                "__v": 0,
-                "contacts": {
-                  "external": [
-                    
-                  ],
-                  "ours": [{ ... }],
-                  "own": [
-                    {
-                      "person": "5990871f80984f1cec3fb02b",
-                      "role": "Förvaltningskontakt",
-                      "_id": "59908fa30b2a8504d8cd4546"
-                    }
-                  ]
-                },
-                "created": "2017-08-13T16:13:39.840Z",
-                "id": "59907ab38cbebd3040dab2df",
-                "employees": null,
-                "projects": null
-              }
-            },
+            "employer": { ... },
             "created": "2017-08-14T17:45:56.023Z",
             "id": "5991e1d497d1bb381034a179"
           }
@@ -80,12 +66,9 @@ Returns the created person.
 
             {
                 "__v": 0,
-                "name": "Linus",
+                "name": "Nisse",
                 "_id": "5992f621a3a0d500118bed94",
-                "employer": {
-                    "role": "Finans",
-                    "org": "59907ab38cbebd3040dab2df"
-                },
+                "employer": { ... },
                 "created": "2017-08-15T13:24:49.225Z",
                 "id": "5992f621a3a0d500118bed94"
             }
@@ -93,25 +76,300 @@ Returns the created person.
 
 
 
-
-## Orgs Collection [/orgs]
-
-// Basic routes
-router.get( "/orgs", catchErrors( orgController.getOrgs ) )
-router.post( "/orgs", catchErrors( orgController.addOrg ) )
-router.get( "/orgs/:orgId", catchErrors( orgController.getOrg ) )
-router.delete( "/orgs/:orgId", catchErrors( orgController.deleteOrg ) )
-
-
-// Handle contacs
-router.get( "/orgs/:orgId/contacts", catchErrors( orgController.getContacts ) )
-router.post( "/orgs/:orgId/contacts/ours", catchErrors( orgController.addContact ) )
-
-
-
+# Group Projects
 
 
 ## Projects Collection [/projects]
 
-router.get( "/projects", catchErrors( projectController.getProjects ) )
-router.post( "/projects", catchErrors( projectController.addProject ) )
+Projects represents classic projects intended for a limited piece of work or a continous group within an organisation. 
+
+
+### List all projects [GET]
+
+Get a list of all current projects. 
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id": "5992018f1c383d1534c8d07d",
+                "slug": "satta-upp-imd-2",
+                "org": "59907ab38cbebd3040dab2df",
+                "level": "project",
+                "name": "sätta upp imd",
+                "description": "Sätta upp IMD hos FAST2",
+                "startDate": 1504216800000,
+                "endDate": 1514674800000,
+                "currentStatus": "Ej startat",
+                "__v": 0,
+                "participants": {
+                    "external": [ ... ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
+                },
+                "created": "2017-08-14T20:01:19.318Z",
+                "tags": [
+                    "IMD",
+                    "BKAB",
+                    "fi2"
+                ],
+                "links": [ ... ],
+                "id": "5992018f1c383d1534c8d07d"
+            }
+        ]
+
+
+
+
+
+### Create a new project [POST]
+
+Add a project to the database. Projects must have an organisation. 
+
++ Request (application/json)
+
+        { 
+          "org": "59907ab38cbebd3040dab2df",
+          "level": "project",
+          "name": "Sätta upp IMD",
+          "description": "Sätta upp IMD",
+          "startDate": "2017-09-01",
+          "endDate": "2017-12-31",
+          "currentStatus": "Ej startat",
+          "tags": ["IMD", "BKAB", "fi2"]
+        }
+
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "__v": 0,
+                "slug": "satta-upp-imd-3",
+                "org": "59907ab38cbebd3040dab2df",
+                "level": "project",
+                "name": "sätta upp imd",
+                "description": "Sätta upp IMD",
+                "startDate": 1504216800000,
+                "endDate": 1514674800000,
+                "currentStatus": "Ej startat",
+                "_id": "59934e957db63b4d2ce5dec0",
+                "participants": {
+                    "external": [ ... ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
+                },
+                "created": "2017-08-15T19:42:13.688Z",
+                "tags": [
+                    "IMD",
+                    "BKAB",
+                    "fi2"
+                ],
+                "links": [ ... ],
+                "id": "59934e957db63b4d2ce5dec0"
+            }
+
+
+
+
+
+# Group Organisation
+
+
+## All organisations [/orgs]
+
+Orgs reperesent companies. They can have employees, contacts and projects. 
+
+
+### List all orgs [GET]
+
+Get a list of all current organisations. 
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id": "59907ab38cbebd3040dab2df",
+                "slug": "fast-2",
+                "name": "FAST2",
+                "description": "The mother of all",
+                "__v": 0,
+                "contacts": {
+                    "external": [ ... ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
+                },
+                "created": "2017-08-13T16:13:39.840Z",
+                "id": "59907ab38cbebd3040dab2df",
+                "employees": null,
+                "projects": null
+            }
+        ]
+
+
+
+
+
+### Create a new project [POST]
+
+Add an organisation.
+
++ Request (application/json)
+
+        {
+            "name": "Vera",
+            "description": "En mass mög all"
+        }
+
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "__v": 0,    
+                "slug": "vera",
+                "name": "Vera",
+                "description": "En mass mög all",
+                "_id": "599351c175dae3178c97fe81",
+                "contacts": {
+                    "external": [ ... ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
+                },
+                "created": "2017-08-15T19:55:45.300Z",
+                "id": "599351c175dae3178c97fe81",
+                "employees": null,
+                "projects": null
+            }
+
+
+
+
+
+## One specfic [/orgs/{orgId}]
+
++ Parameters
+    + orgId - ObjectId for an org
+
+
+### Get one org [GET]
+
+Get specified org as complete as possible
+
++ Response 200 (application/json)
+
+        {
+            "_id": "59907ab38cbebd3040dab2df",
+            "slug": "fast-2",
+            "name": "FAST2",
+            "description": "The mother of all",
+            "__v": 0,
+            "contacts": {
+                "external": [ ... ],
+                "ours": [ ... ],
+                "own": [ ... ]
+            },
+            "created": "2017-08-13T16:13:39.840Z",
+            "id": "59907ab38cbebd3040dab2df",
+            "employees": [ ... ],
+            "projects": [ ... ]
+        }
+
+
+
+
+
+### Delete org [DELETE]
+
+Delete specified org
+
++ Response 200 (application/json)
+
+
+
+
+
+## Contacts for one org [/orgs/{orgId}/contacts]
+
++ Parameters
+    + orgId - ObjectId for an org
+
+
+### Get all contacts  [GET]
+
+Get all contacts for a specified org
+
++ Response 200 (application/json)
+
+        {
+            "_id": "59907ab38cbebd3040dab2df",
+            "contacts": {
+                "external": [ ... ],
+                "ours": [
+                    {
+                        "person": {
+                            "_id": "5990871f80984f1cec3fb02b",
+                            "name": "Nisse",
+                            "__v": 0,
+                            "employer": {
+                                "role": "Chef",
+                                "org": "59907ab38cbebd3040dab2df"
+                            },
+                            "created": "2017-08-13T17:06:39.171Z",
+                            "id": "5990871f80984f1cec3fb02b"
+                        },
+                        "role": "Förvaltningskontakt",
+                        "_id": "59908e331366d01decc1b228"
+                    }
+                ],
+                "own": [ ... ]
+            },
+            "id": "59907ab38cbebd3040dab2df",
+            "employees": null,
+            "projects": null
+        }
+
+
+
+### Add contact [POST]
+
+Add a contact to an organisation.
+
++ Request (application/json)
+        
+        {
+            "level": "external",
+            "role": "Förvaltningskontakt",
+            "person": "5990871f80984f1cec3fb02b"
+        }
+
+
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "_id": "59907ab38cbebd3040dab2df",
+                "slug": "fast-2",
+                "name": "FAST2",
+                "description": "The mother of all",
+                "__v": 0,
+                "contacts": {
+                    "external": [
+                        {
+                            "person": "5990871f80984f1cec3fb02b",
+                            "role": "Förvaltningskontakt",
+                            "_id": "5993560da45ebc0268d5d17e"
+                        }
+                    ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
+                },
+                "created": "2017-08-13T16:13:39.840Z",
+                "id": "59907ab38cbebd3040dab2df",
+                "employees": null,
+                "projects": null
+            }
