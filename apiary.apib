@@ -1,80 +1,117 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://vast-garden-73880.herokuapp.com/
 
 # Hydra-API
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+This is the backend for the Hydra collaboration tool. 
 
-## Questions Collection [/questions]
+- Currently it is very much a work in progress!
 
-### List All Questions [GET]
+
+
+
+
+## Person Collection [/persons]
+
+
+### List all persons [GET]
+
+Get a list of all persons. 
 
 + Response 200 (application/json)
 
         [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+          {
+            "_id": "5991e1d497d1bb381034a179",
+            "name": "Nisse",
+            "__v": 0,
+            "employer": {
+              "role": "Chef",
+              "org": {
+                "_id": "59907ab38cbebd3040dab2df",
+                "slug": "fast-2",
+                "name": "FAST2",
+                "description": "The mother of all",
+                "__v": 0,
+                "contacts": {
+                  "external": [
+                    
+                  ],
+                  "ours": [{ ... }],
+                  "own": [
                     {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
+                      "person": "5990871f80984f1cec3fb02b",
+                      "role": "Förvaltningskontakt",
+                      "_id": "59908fa30b2a8504d8cd4546"
                     }
-                ]
-            }
+                  ]
+                },
+                "created": "2017-08-13T16:13:39.840Z",
+                "id": "59907ab38cbebd3040dab2df",
+                "employees": null,
+                "projects": null
+              }
+            },
+            "created": "2017-08-14T17:45:56.023Z",
+            "id": "5991e1d497d1bb381034a179"
+          }
         ]
 
-### Create a New Question [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+### Create a new person [POST]
+
+Add a person to the database. New person may supply employer.
+
+Returns the created person.
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "name": "Nisse",
+            "employer": {
+                "role": "Chef",
+                "org": "59907ab38cbebd3040dab2df"
+            }
         }
 
 + Response 201 (application/json)
 
-    + Headers
-
-            Location: /questions/2
-
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "__v": 0,
+                "name": "Linus",
+                "_id": "5992f621a3a0d500118bed94",
+                "employer": {
+                    "role": "Finans",
+                    "org": "59907ab38cbebd3040dab2df"
+                },
+                "created": "2017-08-15T13:24:49.225Z",
+                "id": "5992f621a3a0d500118bed94"
             }
+            
+
+
+
+
+## Orgs Collection [/orgs]
+
+// Basic routes
+router.get( "/orgs", catchErrors( orgController.getOrgs ) )
+router.post( "/orgs", catchErrors( orgController.addOrg ) )
+router.get( "/orgs/:orgId", catchErrors( orgController.getOrg ) )
+router.delete( "/orgs/:orgId", catchErrors( orgController.deleteOrg ) )
+
+
+// Handle contacs
+router.get( "/orgs/:orgId/contacts", catchErrors( orgController.getContacts ) )
+router.post( "/orgs/:orgId/contacts/ours", catchErrors( orgController.addContact ) )
+
+
+
+
+
+## Projects Collection [/projects]
+
+router.get( "/projects", catchErrors( projectController.getProjects ) )
+router.post( "/projects", catchErrors( projectController.addProject ) )
