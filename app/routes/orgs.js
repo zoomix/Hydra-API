@@ -25,7 +25,7 @@ router.delete( "/orgs/:orgId", catchErrors( orgController.deleteOrg ) )
 
 // Handle contacs
 router.get( "/orgs/:orgId/contacts", catchErrors( orgController.getContacts ) )
-router.post( "/orgs/:orgId/contacts/ours", catchErrors( orgController.addContact ) )
+router.post( "/orgs/:orgId/contacts", catchErrors( orgController.addContact ) )
 
 
 
