@@ -7,9 +7,12 @@ This is the backend for the Hydra collaboration tool.
 
 - Currently it is very much a work in progress!
 
-**{ ... }** in responses marks a nested object that may be populated or not depending on the situation. 
-Will be shown in this form for the sake of brevity.
 
+
+
+For the sake of brevity, the following will be used:
+- **{ ... }** in responses marks a nested object that may be populated or not depending on the situation. 
+- **[ ... ]** in responses marks an array that may be populated depending on the situation and available data. 
 
 
 
@@ -100,9 +103,9 @@ Get a list of all current projects.
                 "currentStatus": "Ej startat",
                 "__v": 0,
                 "participants": {
-                    "external": [],
-                    "ours": [],
-                    "own": []
+                    "external": [ ... ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
                 },
                 "created": "2017-08-14T20:01:19.318Z",
                 "tags": [
@@ -110,7 +113,7 @@ Get a list of all current projects.
                     "BKAB",
                     "fi2"
                 ],
-                "links": [],
+                "links": [ ... ],
                 "id": "5992018f1c383d1534c8d07d"
             }
         ]
@@ -153,9 +156,9 @@ Add a project to the database. Projects must have an organisation.
                 "currentStatus": "Ej startat",
                 "_id": "59934e957db63b4d2ce5dec0",
                 "participants": {
-                    "external": [],
-                    "ours": [],
-                    "own": []
+                    "external": [ ... ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
                 },
                 "created": "2017-08-15T19:42:13.688Z",
                 "tags": [
@@ -163,7 +166,7 @@ Add a project to the database. Projects must have an organisation.
                     "BKAB",
                     "fi2"
                 ],
-                "links": [],
+                "links": [ ... ],
                 "id": "59934e957db63b4d2ce5dec0"
             }
 
@@ -193,9 +196,9 @@ Get a list of all current organisations.
                 "description": "The mother of all",
                 "__v": 0,
                 "contacts": {
-                    "external": [],
-                    "ours": [],
-                    "own": []
+                    "external": [ ... ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
                 },
                 "created": "2017-08-13T16:13:39.840Z",
                 "id": "59907ab38cbebd3040dab2df",
@@ -231,9 +234,9 @@ Add an organisation.
                 "description": "En mass mög all",
                 "_id": "599351c175dae3178c97fe81",
                 "contacts": {
-                    "external": [],
-                    "ours": [],
-                    "own": []
+                    "external": [ ... ],
+                    "ours": [ ... ],
+                    "own": [ ... ]
                 },
                 "created": "2017-08-15T19:55:45.300Z",
                 "id": "599351c175dae3178c97fe81",
@@ -264,14 +267,14 @@ Get specified org as complete as possible
             "description": "The mother of all",
             "__v": 0,
             "contacts": {
-                "external": [],
-                "ours": [],
-                "own": []
+                "external": [ ... ],
+                "ours": [ ... ],
+                "own": [ ... ]
             },
             "created": "2017-08-13T16:13:39.840Z",
             "id": "59907ab38cbebd3040dab2df",
-            "employees": [],
-            "projects": []
+            "employees": [ ... ],
+            "projects": [ ... ]
         }
 
 
@@ -303,7 +306,7 @@ Get all contacts for a specified org
         {
             "_id": "59907ab38cbebd3040dab2df",
             "contacts": {
-                "external": [],
+                "external": [ ... ],
                 "ours": [
                     {
                         "person": {
@@ -321,7 +324,7 @@ Get all contacts for a specified org
                         "_id": "59908e331366d01decc1b228"
                     }
                 ],
-                "own": []
+                "own": [ ... ]
             },
             "id": "59907ab38cbebd3040dab2df",
             "employees": null,
@@ -362,8 +365,8 @@ Add a contact to an organisation.
                             "_id": "5993560da45ebc0268d5d17e"
                         }
                     ],
-                    "ours": [],
-                    "own": []
+                    "ours": [ ... ],
+                    "own": [ ... ]
                 },
                 "created": "2017-08-13T16:13:39.840Z",
                 "id": "59907ab38cbebd3040dab2df",
