@@ -3,6 +3,11 @@
 Backend for the Hydra collaboration tool!
 
 
+## API-documentation
+
+http://docs.hydraapi1.apiary.io/#
+
+
 
 ## How to start
 
