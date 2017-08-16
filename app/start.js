@@ -18,28 +18,28 @@ require( "./config/config.js" )
 
 
 
-// *****************************************************************************
-// *****************************************************************************
-// Connect to our Database and handle a bad connections
-mongoose.connect( process.env.DB_URI, {useMongoClient: true})
+// // *****************************************************************************
+// // *****************************************************************************
+// // Connect to our Database and handle a bad connections
+// mongoose.connect( process.env.DB_URI, {useMongoClient: true})
 
-mongoose.Promise = global.Promise // Tell Mongoose to use ES6 promises
+// mongoose.Promise = global.Promise // Tell Mongoose to use ES6 promises
 
-mongoose.connection.on( "error", ( err ) => {
-  console.error( `🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}` )
-})
-
-
+// mongoose.connection.on( "error", ( err ) => {
+//   console.error( `🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}` )
+// })
 
 
 
-// *****************************************************************************
-// *****************************************************************************
-// import all models
 
-require( "./models/Org" )
-require( "./models/Person" )
-require( "./models/Project" )
+
+// // *****************************************************************************
+// // *****************************************************************************
+// // import all models
+
+// require( "./models/Org" )
+// require( "./models/Person" )
+// require( "./models/Project" )
 
 
 
@@ -50,6 +50,9 @@ require( "./models/Project" )
 // Start our app!
 
 const app = require( "./app" )
+
+
+
 
 app.set( "port", process.env.PORT || 7777 )
 

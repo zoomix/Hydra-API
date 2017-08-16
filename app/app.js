@@ -23,6 +23,8 @@ const morgan           = require( "morgan" )
 
 // Internals
 
+const {mongoose} = require( "./db/mongoose" )
+
 
 const routes = require( "./routes/index" )
 
@@ -40,8 +42,12 @@ const errorHandlers = require( "./handlers/errorHandlers" )
 const app = express()
 
 
-// Use logger
-app.use( morgan( "dev" ) )
+// Use logger if in dev
+if ( app.get( "env" ) === "development" ) {
+
+  app.use( morgan( "dev" ) )
+
+}
 
 
 // Takes the raw requests and turns them into usable properties on req.body
@@ -63,8 +69,9 @@ app.use( errorHandlers.notFound )
 
 // Otherwise this was a really bad error we didn't expect! Shoot eh
 if ( app.get( "env" ) === "development" ) {
-  /* Development Error Handler - Prints stack trace */
+
   app.use( errorHandlers.developmentErrors )
+
 }
 
 

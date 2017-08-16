@@ -18,7 +18,7 @@ const projects = require( "./projects" )
 
 router.get( "/", ( req, res ) =>{
 
-  res.json({it: "worked"})
+  res.status( 200 ).json({it: "worked"})
 
 
 })

@@ -17,10 +17,23 @@ const Person = mongoose.model( "Person" )
 
 async function getPersons ( req, res ) {
 
+  const query = {}
+
+  const projection = {
+    "name"    : 1,
+    "employer": 1
+  }
+
+  const population = {
+    path  : "employer.org",
+    select: "name"
+  }
+
   const persons = await Person
-    .find({})
-    .populate( "employer.org" )
+    .find( query, projection )
+    .populate( population )
     .sort({ created: "desc"})
+
 
   res.json( persons )
 
